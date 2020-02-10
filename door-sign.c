@@ -1,29 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct member {
+typedef struct {
     char *name;
     char *specialisation;
-};
-struct member* initMember(char* name, char* speciality) {
-    struct member* m = (struct member*)malloc(sizeof(struct member));
+} member;
+
+static void initMember(member *m, char* name, char* speciality) {
     m->name = name;
     m->specialisation = speciality;
-    return m;
 }
+
 int main () {
-    struct member** edslLab = malloc(5 * sizeof(struct member*));    
-    edslLab[0] = initMember("Dominic Lindsay", "Orchestration Systems");
-    edslLab[1] = initMember("Damian Borowiec", "Energy Aware Orchestration");
-    edslLab[2] = initMember("GingFung \"Matthew\" Yeung", "Orchestration for ML/DL");
-    edslLab[3] = initMember("James Bullman", "Distributed Game Engines");
-    edslLab[4] = initMember("Petter  Terenis", "Fault Tolerance Interfaces");
-    int s = 5;
-    for(int i = 0; i < s; i++) {
-        printf("%s -- %s\n", edslLab[i]->name, edslLab[i]->specialisation);
+    int memberCount = 5;
+    member* edslLab = malloc(memberCount * sizeof(member));
+
+    initMember(&edslLab[0], "GingFung \"Matthew\" Yeung", "Orchestration for ML/DL");
+    initMember(&edslLab[1], "Dominic Lindsay",            "Orchestration Systems");
+    initMember(&edslLab[2], "Damian Borowiec",            "Energy Aware Orchestration");
+    initMember(&edslLab[3], "Petter Terenis",             "Fault Tolerance Interfaces");
+    initMember(&edslLab[4], "James Bulman",               "Distributed Game Engines");
+
+    for(int i = 0; i < memberCount; i++) {
+        printf("%s -- %s\n", edslLab[i].name, edslLab[i].specialisation);
     }
-    for(int i = 0; i < s; i++) {
-        free(edslLab[i]);
-    }
+
     free(edslLab);
     return 0;
 }
